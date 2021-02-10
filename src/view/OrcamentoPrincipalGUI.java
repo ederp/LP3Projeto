@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
-public class OrcamentoGUI extends JFrame{
+public class OrcamentoPrincipalGUI extends JFrame{
 	private JTable tabela;
 	//private String colunaNomes[] = {"Data", "Descrição", "Categoria", "Valor"};
 	//private String dados[][] = {}; //recebe os dados do controller/arquivo
@@ -22,10 +22,10 @@ public class OrcamentoGUI extends JFrame{
 	private JTextField tfAno;
 	private JComboBox<String> cbMeses;
 	private static final String valMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-	private JButton btPesquisar;
+	private JButton btPesquisar, btCriarNovo, btAtualizar, btExcluir;
 	private Container cp;
 	
-	public OrcamentoGUI() {
+	public OrcamentoPrincipalGUI() {
 		//instanciando os componentes de interface
 		//tabela = new JTable(dados, colunaNomes); 
 		lbMes = new JLabel("Selecione o mês ");
@@ -33,6 +33,9 @@ public class OrcamentoGUI extends JFrame{
 		lbAno = new JLabel("Digite o ano (no formato AAAA)");
 		tfAno = new JTextField();
 		btPesquisar = new JButton("Pesquisar");
+		btCriarNovo = new JButton("Criar Novo");
+		btAtualizar = new JButton("Atualizar");
+		btExcluir = new JButton("Excluir");
 		
 		//configurando os componentes
 		setTitle("Programa de Orçamento Mensal");
@@ -52,6 +55,9 @@ public class OrcamentoGUI extends JFrame{
 	    lbAno.setBounds(300, 350, 200, 25);
 	    tfAno.setBounds(500, 350, 50, 25);
 	    btPesquisar.setBounds(600, 350, 100, 25);
+	    btCriarNovo.setBounds(600, 390, 100, 25);
+	    btAtualizar.setBounds(600, 430, 100, 25);
+	    btExcluir.setBounds(600, 470, 100, 25);
 	    
 	    //adicionando os componentes ao container
 	    //cp.add(sp);
@@ -60,15 +66,31 @@ public class OrcamentoGUI extends JFrame{
 	    cp.add(lbAno);
 	    cp.add(tfAno);
 	    cp.add(btPesquisar);
+	    cp.add(btCriarNovo);
+	    cp.add(btAtualizar);
+	    cp.add(btExcluir);
+	    
+	    btCriarNovo.addActionListener(e -> cadastrarAction());
+	    btAtualizar.addActionListener(e -> atualizarAction());
+	}
+	
+	private void pesquisarAction() {
+		//pegar os dados do arquivo e mostrar a tabela
+	}
+	
+	private void cadastrarAction() {	
+		SwingUtilities.invokeLater(() -> new OrcamentoNovoGUI().setVisible(true));
+	}
+	
+	private void atualizarAction() {
+		SwingUtilities.invokeLater(() -> new OrcamentoAtualizacaoGUI().setVisible(true));
+	}
+	
+	private void excluirAction() {
+		//mostrar um modal perguntando se deseja excluir o dado selecionado
 	}
 
-
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new OrcamentoGUI().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new OrcamentoPrincipalGUI().setVisible(true));
 	}
 }

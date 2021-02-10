@@ -1,18 +1,30 @@
-package bean;
+package model;
 
 import java.util.Date;
 
 public class Orcamento {
-		private int id;
+		private Integer id;
 		private Date data;
 		private String descricao;
 		private String categoria;
 		private double valor;
 		
-		public int getId() {
+		public Orcamento(Integer id, Date data, String descricao, String categoria, double valor) {
+			super();
+			this.id = id;
+			this.data = data;
+			this.descricao = descricao;
+			this.categoria = categoria;
+			this.valor = valor;
+		}
+		
+		public Orcamento() {
+		}
+
+		public Integer getId() {
 			return id;
 		}
-		public void setId(int id) {
+		public void setId(Integer id) {
 			this.id = id;
 		}
 		public Date getData() {
