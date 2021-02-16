@@ -2,20 +2,25 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import controller.OrcamentoController;
+
 @SuppressWarnings("serial")
 public class OrcamentoNovoGUI extends JDialog{
+	private JDatePickerImpl datePicker;
 	private JLabel lbData, lbDescricao, lbCategoria, lbValor;
 	private JTextField tfDescricao, tfValor;
 	private JComboBox<String> cbCategoria;
@@ -42,7 +47,7 @@ public class OrcamentoNovoGUI extends JDialog{
 		p.put("text.month", "Mês");
 		p.put("text.year", "Ano");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		
 		//configurando os componentes
 		setTitle("Cadastro de Novo Orçamento Mensal");
@@ -74,6 +79,27 @@ public class OrcamentoNovoGUI extends JDialog{
 		cp.add(tfValor);
 		cp.add(btCadastrar);
 		
+		btCadastrar.addActionListener(e -> cadastrarAction());
+	}
+	
+	private void cadastrarAction() {
+		//chamar o método do controller pra pegar os dados passados na gui e jogar no arquivo
+		
+		if(datePicker.getModel().getValue() == null
+				|| tfDescricao.getText().isEmpty() 
+				|| tfValor.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Existem campos a serem preenchidos", "Aviso", JOptionPane.WARNING_MESSAGE);
+		}
+		else {
+			Date data = (Date) datePicker.getModel().getValue();
+			String desc = tfDescricao.getText();
+			String categoria = cbCategoria.getSelectedItem().toString();
+			double valor = Double.parseDouble(tfValor.getText());
+			new OrcamentoController().cadastro(data, desc, categoria, valor);
+			JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+			tfDescricao.setText("");
+			tfValor.setText("");
+		}
 	}
 
 }

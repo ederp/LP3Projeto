@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 @SuppressWarnings("serial")
 public class OrcamentoAtualizacaoGUI extends JDialog{
+	private JDatePickerImpl datePicker;
 	private JLabel lbData, lbDescricao, lbCategoria, lbValor;
 	private JTextField tfDescricao, tfValor;
 	private JComboBox<String> cbCategoria;
@@ -49,7 +51,7 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		p.put("text.month", "Mês");
 		p.put("text.year", "Ano");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
 		//definindo o posicionamento dos componentes
 		lbData.setBounds(30, 30, 150, 25);
@@ -72,7 +74,15 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		cp.add(lbValor);
 		cp.add(tfValor);
 		cp.add(btCadastrar);
+		
+		btCadastrar.addActionListener(e -> cadastrarAction());
 	}
 	
-	
+	private void cadastrarAction() {
+		//chamar o método do controller pra pegar os dados passados na gui e jogar no arquivo
+		Date data = (Date) datePicker.getModel().getValue();
+		String desc = tfDescricao.getText();
+		String categoria = cbCategoria.getSelectedItem().toString();
+		double valor = Double.parseDouble(tfValor.getText());
+	}
 }
