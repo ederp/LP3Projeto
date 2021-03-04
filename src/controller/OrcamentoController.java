@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,18 @@ public class OrcamentoController {
 	}
 	
 	public List<Orcamento> pesquisa(String mes, String ano) {
-		return orcamentoDao.read(); //fazer uma stream pra pegar a data desejada
+		int m = Integer.parseInt(mes);
+		int a = Integer.parseInt(ano);
+		Calendar cal = Calendar.getInstance();
+		List<Orcamento> saida = new ArrayList<>();
+		orcamentoDao.read().stream()
+				.peek(e->{
+					cal.setTime(e.getData());
+				})
+				.filter(e -> cal.get(Calendar.MONTH) == m - 1)
+				.filter(e -> cal.get(Calendar.YEAR) == a)
+				.forEach(saida::add); //fazer uma stream pra pegar a data desejada
+		return saida;
 	}
 	
 	private List<Orcamento> pesquisa(){

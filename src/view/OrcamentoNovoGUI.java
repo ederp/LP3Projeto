@@ -88,18 +88,21 @@ public class OrcamentoNovoGUI extends JDialog{
 		if(datePicker.getModel().getValue() == null
 				|| tfDescricao.getText().isEmpty() 
 				|| tfValor.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(this, "Existem campos a serem preenchidos", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Existem campos a serem preenchidos", "Aviso", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			Date data = (Date) datePicker.getModel().getValue();
 			String desc = tfDescricao.getText();
 			String categoria = cbCategoria.getSelectedItem().toString();
-			double valor = Double.parseDouble(tfValor.getText());
-			new OrcamentoController().cadastro(data, desc, categoria, valor);
-			JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
-			tfDescricao.setText("");
-			tfValor.setText("");
+			try {
+				double valor = Double.parseDouble(tfValor.getText());
+				new OrcamentoController().cadastro(data, desc, categoria, valor);
+				JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+				tfDescricao.setText("");
+				tfValor.setText("");
+			}catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Valor inválido. Digite o valor no formato xx.xx", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
-
 }

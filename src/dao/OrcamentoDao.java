@@ -16,19 +16,16 @@ import model.Orcamento;
 public class OrcamentoDao {
 	public void create(Orcamento orcamento) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
 		StringBuilder sbLinha = new StringBuilder();
 		sbLinha.append(orcamento.getId()+"|");
 		sbLinha.append(sdf.format(orcamento.getData())+"|");
 		sbLinha.append(orcamento.getDescricao()+"|");
 		sbLinha.append(orcamento.getCategoria()+ "|");
 		sbLinha.append(orcamento.getValor());
-		try {
-			FileWriter fw = new FileWriter("OrcamentoBackup.txt", true);
-			BufferedWriter bw = new BufferedWriter(fw);
+		
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter("OrcamentoBackup.txt", true))) {
 			bw.write(sbLinha.toString());
 			bw.newLine();
-			bw.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}	
@@ -37,9 +34,8 @@ public class OrcamentoDao {
 	public List<Orcamento> read() {
 		List<Orcamento> lista = new ArrayList<>();
 		Orcamento orc = new Orcamento();
-		try {
-			Scanner sc = new Scanner(new FileReader("OrcamentoBackup.txt"))
-					.useDelimiter("\\||\\n");
+		try(Scanner sc = new Scanner(new FileReader("OrcamentoBackup.txt"))
+				.useDelimiter("\\||\\n")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			while(sc.hasNext()) {
 				try {
@@ -53,7 +49,6 @@ public class OrcamentoDao {
 					System.out.println(e.getMessage());
 				}
 			}
-			sc.close();
 		} catch (FileNotFoundException e1) {
 			System.out.println(e1.getMessage());
 		}
@@ -84,9 +79,7 @@ public class OrcamentoDao {
 	}
 	
 	private void createNew() {
-		try {
-			FileWriter fw = new FileWriter("OrcamentoBackup.txt", true);
-			fw.close();
+		try(FileWriter fw = new FileWriter("OrcamentoBackup.txt", true)) {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

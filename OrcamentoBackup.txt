@@ -1,2 +1,3 @@
 20211100|10-02-2021|Salário|Salário|3000.0
 20211111|11-02-2021|Supermercado|Alimentação|150.0
+20211112|11-02-2021|Farmácia|Saúde|30.1
