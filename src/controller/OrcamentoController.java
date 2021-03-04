@@ -22,7 +22,7 @@ public class OrcamentoController {
 	}
 	
 	public List<Orcamento> pesquisa(String mes, String ano) {
-		int m = Integer.parseInt(mes);
+		int m = converteMes(mes);
 		int a = Integer.parseInt(ano);
 		Calendar cal = Calendar.getInstance();
 		List<Orcamento> saida = new ArrayList<>();
@@ -36,6 +36,35 @@ public class OrcamentoController {
 		return saida;
 	}
 	
+	private int converteMes(String mes) {
+		switch (mes) {
+		case "Janeiro":
+			return 1;
+		case "Fevereiro":
+			return 2;
+		case "Março":
+			return 3;
+		case "Abril":
+			return 4;
+		case "Maio":
+			return 5;
+		case "Junho":
+			return 6;
+		case "Julho":
+			return 7;
+		case "Agosto":
+			return 8;
+		case "Setembro":
+			return 9;
+		case "Outubro":
+			return 10;
+		case "Novembro":
+			return 11;
+		default:
+			return 12;
+		}
+	}
+
 	private List<Orcamento> pesquisa(){
 		return orcamentoDao.read();
 	}

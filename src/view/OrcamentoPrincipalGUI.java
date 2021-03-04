@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -86,62 +89,31 @@ public class OrcamentoPrincipalGUI extends JFrame{
 	
 	private void pesquisarAction() {
 		//pegar os dados do arquivo e mostrar a tabela
-		String mesLido = null;
-		switch (cbMeses.getSelectedItem().toString()) {
-		case "Janeiro":
-			mesLido = "01";
-			break;
-		case "Fevereiro":
-			mesLido = "02";
-			break;
-		case "Março":
-			mesLido = "03";
-			break;
-		case "Abril":
-			mesLido = "04";
-			break;
-		case "Maio":
-			mesLido = "05";
-			break;
-		case "Junho":
-			mesLido = "06";
-			break;
-		case "Julho":
-			mesLido = "07";
-			break;
-		case "Agosto":
-			mesLido = "08";
-			break;
-		case "Setembro":
-			mesLido = "09";
-			break;
-		case "Outubro":
-			mesLido = "10";
-			break;
-		case "Novembro":
-			mesLido = "11";
-			break;
-		default:
-			mesLido = "12";
-			break;
-		}
 		List<Orcamento> lista = new OrcamentoController()
-				.pesquisa(mesLido, cbAnos.getSelectedItem().toString());
-		String colunaNomes[] = {"Data", "Descrição", "Categoria", "Valor"};
-		String dados[][] = new String[lista.size()][4];
-		for(int i = 0; i < lista.size(); i++) {
-			for(int j = 0; j < 4; j++) {
-				if(j == 0) dados[i][j] = lista.get(i).getData().toString();
-				if(j == 1) dados[i][j] = lista.get(i).getDescricao();
-				if(j == 2) dados[i][j] = lista.get(i).getCategoria();
-				if(j == 3) dados[i][j] = String.valueOf(lista.get(i).getValor());
+				.pesquisa(cbMeses.getSelectedItem().toString(), cbAnos.getSelectedItem().toString());
+		if(lista.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Não há despesas cadastradas para o período selecionado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			String colunaNomes[] = {"Data", "Descrição", "Categoria", "Valor"};
+			String dados[][] = new String[lista.size()][4];
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			NumberFormat nf = NumberFormat.getCurrencyInstance();
+			
+			for(int i = 0; i < lista.size(); i++) {
+				for(int j = 0; j < 4; j++) {
+					dados[i][j] = (j == 0) ? sdf.format(lista.get(i).getData()) :
+						(j == 1) ? lista.get(i).getDescricao() :
+							(j == 2) ? lista.get(i).getCategoria() :
+								nf.format(lista.get(i).getValor());
+				}
 			}
+			
+			tabela = new JTable(dados, colunaNomes);
+			painel.setLayout(new BorderLayout());
+			painel.add(tabela.getTableHeader(), BorderLayout.PAGE_START);
+			painel.add(tabela, BorderLayout.CENTER);
+			painel.setVisible(true);
 		}
-		tabela = new JTable(dados, colunaNomes);
-		painel.setLayout(new BorderLayout());
-		painel.add(tabela.getTableHeader(), BorderLayout.PAGE_START);
-		painel.add(tabela, BorderLayout.CENTER);
-		painel.setVisible(true);
 	}
 	
 	private void cadastrarAction() {	

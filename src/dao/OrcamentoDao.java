@@ -33,13 +33,13 @@ public class OrcamentoDao {
 	
 	public List<Orcamento> read() {
 		List<Orcamento> lista = new ArrayList<>();
-		Orcamento orc = new Orcamento();
 		try(Scanner sc = new Scanner(new FileReader("OrcamentoBackup.txt"))
 				.useDelimiter("\\||\\n")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			while(sc.hasNext()) {
 				try {
-					orc.setId(Integer.parseInt(sc.next()));
+					Orcamento orc = new Orcamento();
+					orc.setId(sc.nextInt());
 					orc.setData(sdf.parse(sc.next()));
 					orc.setDescricao(sc.next());
 					orc.setCategoria(sc.next());
