@@ -57,14 +57,11 @@ public class OrcamentoDao {
 	
 	public void update(Orcamento orcamento) {
 		List<Orcamento> lista = read();
-		lista.stream()
-			.filter(e -> e.getId() == orcamento.getId())
-			.forEach(e ->{
-				e.setData(orcamento.getData());
-				e.setDescricao(orcamento.getDescricao());
-				e.setCategoria(orcamento.getCategoria());
-				e.setValor(orcamento.getValor());
-			});
+		
+		int index = lista.indexOf(orcamento);
+		if(index > -1){
+			lista.set(index, orcamento);
+        }
 		rewrite(lista);
 	}
 	
@@ -79,7 +76,7 @@ public class OrcamentoDao {
 	}
 	
 	private void createNew() {
-		try(FileWriter fw = new FileWriter("OrcamentoBackup.txt", true)) {
+		try(FileWriter fw = new FileWriter("OrcamentoBackup.txt")) {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

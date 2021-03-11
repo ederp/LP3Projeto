@@ -9,11 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import controller.OrcamentoController;
 
 @SuppressWarnings("serial")
 public class OrcamentoAtualizacaoGUI extends JDialog{
@@ -23,18 +26,21 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 	private JComboBox<String> cbCategoria;
 	private static final String[] valCategoria = {"Salário", "Alimentação", "Casa", "Serviços", "Despesas pessoais", "Contas a pagar", "Impostos", 
 			"Saúde", "Lazer", "Transporte", "Educação", "Outras despesas", "Outros recebimentos"};
-	private JButton btCadastrar;
+	private JButton btAtualizar;
 	private Container cp;
-	public OrcamentoAtualizacaoGUI() {
+	private int id;
+	
+	public OrcamentoAtualizacaoGUI(int id, String data, String descricao, String categoria, String valor) {
 		//instanciando os componentes de interface
 		lbData = new JLabel("Data");
 		lbDescricao = new JLabel("Descrição");
-		tfDescricao = new JTextField(); //adicionar ao textfield os dados da tabela
+		tfDescricao = new JTextField(); 
 		lbCategoria = new JLabel("Categoria");
-		cbCategoria = new JComboBox<String>(valCategoria); //deixar selecionado os dados da tabela
+		cbCategoria = new JComboBox<String>(valCategoria);
 		lbValor = new JLabel("Valor");
-		tfValor = new JTextField(); //adicionar ao textfield os dados da tabela
-		btCadastrar = new JButton("Cadastrar");
+		tfValor = new JTextField();
+		btAtualizar = new JButton("Atualizar");
+		this.id = id;
 
 		//configurando os componentes
 		setTitle("Atualização de Orçamento Mensal");
@@ -50,6 +56,12 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		p.put("text.today", "Hoje");
 		p.put("text.month", "Mês");
 		p.put("text.year", "Ano");
+		//adicionando a data da tabela no date picker
+		int ano = Integer.parseInt(data.substring(6, 10));
+		int mes = Integer.parseInt(data.substring(3, 5));
+		int dia = Integer.parseInt(data.substring(0, 2));
+		model.setDate(ano, (mes - 1), dia);
+		model.setSelected(true);
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
@@ -62,7 +74,14 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		cbCategoria.setBounds(100, 90, 150, 25);
 		lbValor.setBounds(30, 120, 100, 25);
 		tfValor.setBounds(100, 120, 100, 25);
-		btCadastrar.setBounds(150, 200, 100, 25);
+		btAtualizar.setBounds(150, 200, 100, 25);
+		
+		//adicionando os demais dados da tabela nos labels
+		tfDescricao.setText(descricao);
+		cbCategoria.getModel().setSelectedItem(categoria);
+		valor = valor.substring(3);
+		valor = valor.replace(',', '.');
+		tfValor.setText(valor);
 
 		//adicionando os componentes ao container
 		cp.add(lbData);
@@ -73,16 +92,26 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		cp.add(cbCategoria);
 		cp.add(lbValor);
 		cp.add(tfValor);
-		cp.add(btCadastrar);
-		
-		btCadastrar.addActionListener(e -> cadastrarAction());
+		cp.add(btAtualizar);
+
+		btAtualizar.addActionListener(e -> atualizarAction());
 	}
 	
-	private void cadastrarAction() {
+	private void atualizarAction() {
 		//chamar o método do controller pra pegar os dados passados na gui e jogar no arquivo
-		Date data = (Date) datePicker.getModel().getValue();
-		String desc = tfDescricao.getText();
-		String categoria = cbCategoria.getSelectedItem().toString();
-		double valor = Double.parseDouble(tfValor.getText());
+		if(datePicker.getModel().getValue() == null
+				|| tfDescricao.getText().isEmpty() 
+				|| tfValor.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Existem campos a serem preenchidos", "Aviso", JOptionPane.ERROR_MESSAGE);
+		} else {
+			OrcamentoController oc = new OrcamentoController();
+			Date data = (Date) datePicker.getModel().getValue();
+			String desc = tfDescricao.getText();
+			String categoria = cbCategoria.getSelectedItem().toString();
+			double valor = Double.parseDouble(tfValor.getText());
+			oc.atualiza(this.id, data, desc, categoria, valor);
+			JOptionPane.showMessageDialog(this, "Atualização realizada com sucesso", "Atualização", JOptionPane.INFORMATION_MESSAGE);
+			this.setVisible(false);
+		}
 	}
 }

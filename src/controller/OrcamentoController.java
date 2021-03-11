@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import dao.OrcamentoDao;
 import model.Orcamento;
 
@@ -36,29 +35,59 @@ public class OrcamentoController {
 		return saida;
 	}
 	
+	public void atualiza(int id, Date data, String desc, String categoria, double valor) {
+		Orcamento novoOrc = new Orcamento();
+		novoOrc.setId(id);
+		novoOrc.setDescricao(desc);
+		novoOrc.setData(data);
+		novoOrc.setCategoria(categoria);
+		novoOrc.setValor(valor);
+		orcamentoDao.update(novoOrc);
+	}
+	
+	public boolean exclui(int id, Date data, String desc, String categoria, double valor) {
+		Orcamento novoOrc = new Orcamento();
+		novoOrc.setId(id); 
+		novoOrc.setDescricao(desc);
+		novoOrc.setData(data);
+		novoOrc.setCategoria(categoria);
+		novoOrc.setValor(valor);
+		return orcamentoDao.delete(novoOrc);
+	}
+	
+	/*
+	public int buscaPorId(Orcamento orcamento) {
+		List<Orcamento> achado = pesquisa().stream()
+				.filter(e -> e.getId() == orcamento.getId())
+				.collect(Collectors.toList());
+		if(!achado.isEmpty()) return achado.get(0).getId();
+		return -1;
+	}
+	*/
+	
 	private int converteMes(String mes) {
 		switch (mes) {
-		case "Janeiro":
+		case "janeiro":
 			return 1;
-		case "Fevereiro":
+		case "fevereiro":
 			return 2;
-		case "Março":
+		case "março":
 			return 3;
-		case "Abril":
+		case "abril":
 			return 4;
-		case "Maio":
+		case "maio":
 			return 5;
-		case "Junho":
+		case "junho":
 			return 6;
-		case "Julho":
+		case "julho":
 			return 7;
-		case "Agosto":
+		case "agosto":
 			return 8;
-		case "Setembro":
+		case "setembro":
 			return 9;
-		case "Outubro":
+		case "outubro":
 			return 10;
-		case "Novembro":
+		case "novembro":
 			return 11;
 		default:
 			return 12;
@@ -67,26 +96,6 @@ public class OrcamentoController {
 
 	private List<Orcamento> pesquisa(){
 		return orcamentoDao.read();
-	}
-	
-	public void atualiza(int id, Date data, String desc, String categoria, double valor) {
-		Orcamento novoOrc = new Orcamento();
-		novoOrc.setId(id); //pega o id existente na gui de atualização
-		novoOrc.setDescricao(desc);
-		novoOrc.setData(data);
-		novoOrc.setCategoria(categoria);
-		novoOrc.setValor(valor);
-		orcamentoDao.update(novoOrc);
-	}
-	
-	public void exclui(int id, Date data, String desc, String categoria, double valor) {
-		Orcamento novoOrc = new Orcamento();
-		novoOrc.setId(id); //pega o id existente na gui de atualização
-		novoOrc.setDescricao(desc);
-		novoOrc.setData(data);
-		novoOrc.setCategoria(categoria);
-		novoOrc.setValor(valor);
-		orcamentoDao.delete(novoOrc);
 	}
 	
 	private int geraId(Date data) {
@@ -100,4 +109,5 @@ public class OrcamentoController {
 		int id = Integer.parseInt(sbData.toString());
 		return id;
 	}
+
 }
