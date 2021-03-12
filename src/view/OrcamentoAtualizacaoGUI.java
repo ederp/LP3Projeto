@@ -80,7 +80,6 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 		tfDescricao.setText(descricao);
 		cbCategoria.getModel().setSelectedItem(categoria);
 		valor = valor.substring(3);
-		valor = valor.replace(',', '.');
 		tfValor.setText(valor);
 
 		//adicionando os componentes ao container
@@ -108,7 +107,9 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 			Date data = (Date) datePicker.getModel().getValue();
 			String desc = tfDescricao.getText();
 			String categoria = cbCategoria.getSelectedItem().toString();
-			double valor = Double.parseDouble(tfValor.getText());
+			String valorProvisorio = (tfValor.getText().contains(",")) ? 
+					tfValor.getText().replace(',', '.') : tfValor.getText();
+			double valor = Double.parseDouble(valorProvisorio);
 			oc.atualiza(this.id, data, desc, categoria, valor);
 			JOptionPane.showMessageDialog(this, "Atualização realizada com sucesso", "Atualização", JOptionPane.INFORMATION_MESSAGE);
 			this.setVisible(false);

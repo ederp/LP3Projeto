@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import dao.Create;
 import dao.OrcamentoDao;
 import model.Orcamento;
 
 public class OrcamentoController {
 	private OrcamentoDao orcamentoDao = new OrcamentoDao();
+	
 
 	public void cadastro(Date data, String desc, String categoria, double valor) {
 		Orcamento novoOrc = new Orcamento();
@@ -17,7 +20,13 @@ public class OrcamentoController {
 		novoOrc.setData(data);
 		novoOrc.setCategoria(categoria);
 		novoOrc.setValor(valor);
-		orcamentoDao.create(novoOrc);
+		Thread tCreate = new Thread(new Create(orcamentoDao, novoOrc));
+		tCreate.start();
+		try {
+			tCreate.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<Orcamento> pesquisa(String mes, String ano) {

@@ -229,6 +229,7 @@ public class OrcamentoPrincipalGUI extends JFrame{
 						OrcamentoController oc  = new OrcamentoController();
 						if(oc.exclui(id, sdf.parse(data), descricao, categoria, val)) {
 							JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+							pesquisarAction();
 						} else {
 							JOptionPane.showMessageDialog(this, "A exclusão não pode ser feita", "Exclusão", JOptionPane.ERROR_MESSAGE);
 						}

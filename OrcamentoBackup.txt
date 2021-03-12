@@ -1,5 +1,4 @@
-20211100|10-02-2021|Salário|Salário|3000.0
-20211111|11-02-2021|Supermercado|Alimentação|125.0
+20211111|11-02-2021|Salário|Salário|3000.0
 2021252|05-03-2021|Salário|Salário|3000.0
 2021273|07-03-2021|Supermercado|Alimentação|112.2
 2021274|07-03-2021|Luz|Contas a pagar|95.0
@@ -7,3 +6,5 @@
 2021256|05-03-2021|Internet|Contas a pagar|165.33
 20212107|10-03-2021|Transferência|Outros recebimentos|100.0
 20212118|11-03-2021|Padaria|Alimentação|31.5
+20211129|12-02-2021|Luz|Contas a pagar|98.32
+20211129|12-02-2021|Supermercado|Alimentação|114.66
