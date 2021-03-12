@@ -54,17 +54,7 @@ public class OrcamentoController {
 		novoOrc.setValor(valor);
 		return orcamentoDao.delete(novoOrc);
 	}
-	
-	/*
-	public int buscaPorId(Orcamento orcamento) {
-		List<Orcamento> achado = pesquisa().stream()
-				.filter(e -> e.getId() == orcamento.getId())
-				.collect(Collectors.toList());
-		if(!achado.isEmpty()) return achado.get(0).getId();
-		return -1;
-	}
-	*/
-	
+		
 	private int converteMes(String mes) {
 		switch (mes) {
 		case "janeiro":
