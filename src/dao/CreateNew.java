@@ -12,7 +12,4 @@ public class CreateNew implements Runnable{
 	public void run() {
 		this.orcamentoDao.createNew();
 	}
-	
-	
-
 }

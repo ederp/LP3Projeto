@@ -8,6 +8,7 @@ import java.util.List;
 import dao.Create;
 import dao.OrcamentoDao;
 import model.Orcamento;
+import model.OrcamentoReflexao;
 
 public class OrcamentoController {
 	private OrcamentoDao orcamentoDao = new OrcamentoDao();
@@ -20,6 +21,7 @@ public class OrcamentoController {
 		novoOrc.setData(data);
 		novoOrc.setCategoria(categoria);
 		novoOrc.setValor(valor);
+		new OrcamentoReflexao(novoOrc, Orcamento.class);
 		Thread tCreate = new Thread(new Create(orcamentoDao, novoOrc));
 		tCreate.start();
 		try {

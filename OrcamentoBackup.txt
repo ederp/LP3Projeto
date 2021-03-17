@@ -8,3 +8,5 @@
 20212118|11-03-2021|Padaria|Alimentação|31.5
 20211129|12-02-2021|Luz|Contas a pagar|98.32
 20211129|12-02-2021|Supermercado|Alimentação|114.66
+202122410|24-03-2021|Pizzaria|Alimentação|40.0
+202111611|16-02-2021|Pizzaria|Alimentação|38.0
