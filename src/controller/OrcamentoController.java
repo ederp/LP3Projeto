@@ -13,7 +13,6 @@ import model.OrcamentoReflexao;
 public class OrcamentoController {
 	private OrcamentoDao orcamentoDao = new OrcamentoDao();
 	
-
 	public void cadastro(Date data, String desc, String categoria, double valor) {
 		Orcamento novoOrc = new Orcamento();
 		novoOrc.setId(geraId(data)); //gera novo id
@@ -32,7 +31,7 @@ public class OrcamentoController {
 	}
 	
 	public List<Orcamento> pesquisa(String mes, String ano) {
-		int m = converteMes(mes);
+		int m = numeroMes(mes);
 		int a = Integer.parseInt(ano);
 		Calendar cal = Calendar.getInstance();
 		List<Orcamento> saida = new ArrayList<>();
@@ -42,7 +41,7 @@ public class OrcamentoController {
 				})
 				.filter(e -> cal.get(Calendar.MONTH) == m - 1)
 				.filter(e -> cal.get(Calendar.YEAR) == a)
-				.forEach(saida::add); //fazer uma stream pra pegar a data desejada
+				.forEach(saida::add);
 		return saida;
 	}
 	
@@ -65,36 +64,15 @@ public class OrcamentoController {
 		novoOrc.setValor(valor);
 		return orcamentoDao.delete(novoOrc);
 	}
-		
-	private int converteMes(String mes) {
-		switch (mes) {
-		case "janeiro":
-			return 1;
-		case "fevereiro":
-			return 2;
-		case "março":
-			return 3;
-		case "abril":
-			return 4;
-		case "maio":
-			return 5;
-		case "junho":
-			return 6;
-		case "julho":
-			return 7;
-		case "agosto":
-			return 8;
-		case "setembro":
-			return 9;
-		case "outubro":
-			return 10;
-		case "novembro":
-			return 11;
-		default:
-			return 12;
+	
+	private int numeroMes(String mes) {
+		for(Meses m: Meses.values()) {
+			if(mes.equalsIgnoreCase(m.toString()))
+				return m.getNumeroMes();
 		}
+		return -1;
 	}
-
+		
 	private List<Orcamento> pesquisa(){
 		return orcamentoDao.read();
 	}

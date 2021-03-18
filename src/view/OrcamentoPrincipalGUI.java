@@ -7,12 +7,9 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -25,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
+import controller.Meses;
 import controller.OrcamentoController;
 import model.Orcamento;
 
@@ -46,8 +44,9 @@ public class OrcamentoPrincipalGUI extends JFrame{
 		painel = new JPanel();
 		lbMes = new JLabel("Selecione o mês ");
 		cbMeses = new JComboBox<String>();
-		IntStream.rangeClosed(1, 12)
-			.forEach(i -> cbMeses.addItem(Month.of(i).getDisplayName(TextStyle.FULL, Locale.getDefault())));
+		for(Meses m: Meses.values()) {
+			cbMeses.addItem(m.toString().toLowerCase());
+		}
 		lbAno = new JLabel("Selecione o ano ");
 		cbAnos = new JComboBox<Integer>();
 		IntStream.rangeClosed(2010, anoAtual).forEach(cbAnos::addItem);
