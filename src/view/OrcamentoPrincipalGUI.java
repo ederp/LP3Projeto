@@ -222,9 +222,9 @@ public class OrcamentoPrincipalGUI extends JFrame{
 				if(resposta == 0) {
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					valor = valor.substring(3);
-					valor = valor.replace(',', '.');
-					double val = Double.parseDouble(valor);
+					NumberFormat nf = NumberFormat.getInstance();
 					try {
+						double val = nf.parse(valor).doubleValue();
 						OrcamentoController oc  = new OrcamentoController();
 						if(oc.exclui(id, sdf.parse(data), descricao, categoria, val)) {
 							JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso", "Exclusão", JOptionPane.INFORMATION_MESSAGE);

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -107,12 +109,16 @@ public class OrcamentoAtualizacaoGUI extends JDialog{
 			Date data = (Date) datePicker.getModel().getValue();
 			String desc = tfDescricao.getText();
 			String categoria = cbCategoria.getSelectedItem().toString();
-			String valorProvisorio = (tfValor.getText().contains(",")) ? 
-					tfValor.getText().replace(',', '.') : tfValor.getText();
-			double valor = Double.parseDouble(valorProvisorio);
-			oc.atualiza(this.id, data, desc, categoria, valor);
-			JOptionPane.showMessageDialog(this, "Atualização realizada com sucesso", "Atualização", JOptionPane.INFORMATION_MESSAGE);
-			this.setVisible(false);
+			NumberFormat nf = NumberFormat.getInstance();
+			double valor;
+			try {
+				valor = nf.parse(tfValor.getText()).doubleValue();
+				oc.atualiza(this.id, data, desc, categoria, valor);
+				JOptionPane.showMessageDialog(this, "Atualização realizada com sucesso", "Atualização", JOptionPane.INFORMATION_MESSAGE);
+				this.setVisible(false);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -5,8 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import dao.Create;
 import dao.OrcamentoDao;
+import dao.Read;
 import model.Orcamento;
 import model.OrcamentoReflexao;
 
@@ -21,27 +21,25 @@ public class OrcamentoController {
 		novoOrc.setCategoria(categoria);
 		novoOrc.setValor(valor);
 		new OrcamentoReflexao(novoOrc, Orcamento.class);
-		Thread tCreate = new Thread(new Create(orcamentoDao, novoOrc));
-		tCreate.start();
-		try {
-			tCreate.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		orcamentoDao.create(novoOrc);
 	}
 	
-	public List<Orcamento> pesquisa(String mes, String ano) {
+	public List<Orcamento> pesquisa(String mes, String ano){
 		int m = numeroMes(mes);
 		int a = Integer.parseInt(ano);
-		Calendar cal = Calendar.getInstance();
 		List<Orcamento> saida = new ArrayList<>();
-		orcamentoDao.read().stream()
+		Calendar cal = Calendar.getInstance();
+		Read read = new Read(orcamentoDao);
+		Thread tRead = new Thread(read);
+		tRead.start();
+		read.getLista().stream()
 				.peek(e->{
 					cal.setTime(e.getData());
 				})
 				.filter(e -> cal.get(Calendar.MONTH) == m - 1)
 				.filter(e -> cal.get(Calendar.YEAR) == a)
 				.forEach(saida::add);
+		//return saida;
 		return saida;
 	}
 	

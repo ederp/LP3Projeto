@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -95,14 +97,13 @@ public class OrcamentoNovoGUI extends JDialog{
 			String desc = tfDescricao.getText();
 			String categoria = cbCategoria.getSelectedItem().toString();
 			try {
-				String valorProvisorio = (tfValor.getText().contains(",")) ? 
-								tfValor.getText().replace(',', '.') : tfValor.getText();
-				double valor = Double.parseDouble(valorProvisorio);
+				NumberFormat nf = NumberFormat.getInstance();
+				double valor = nf.parse(tfValor.getText()).doubleValue();
 				new OrcamentoController().cadastro(data, desc, categoria, valor);
 				JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
 				tfDescricao.setText("");
 				tfValor.setText("");
-			}catch (NumberFormatException e) {
+			}catch (ParseException | NumberFormatException e) {
 				JOptionPane.showMessageDialog(this, "Entrada de valor inválida", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
 		}

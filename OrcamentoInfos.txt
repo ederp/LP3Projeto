@@ -6,23 +6,23 @@ Nome canônico da classe :null
 Tipo: model.Orcamento
 ===========================
 =========ATRIBUTOS=========
-id: java.lang.Integer (primitivo: false) -> Valor: 202111611
-data: java.util.Date (primitivo: false) -> Valor: Tue Feb 16 22:01:15 BRST 2021
-descricao: java.lang.String (primitivo: false) -> Valor: Pizzaria
-categoria: java.lang.String (primitivo: false) -> Valor: Alimentação
-valor: double (primitivo: true) -> Valor: 38.0
+id: java.lang.Integer (primitivo: false) -> Valor: 202111010
+data: java.util.Date (primitivo: false) -> Valor: Wed Feb 10 22:12:50 BRST 2021
+descricao: java.lang.String (primitivo: false) -> Valor: Salário
+categoria: java.lang.String (primitivo: false) -> Valor: Salário
+valor: double (primitivo: true) -> Valor: 3000.0
 ===========================
 ==========METODOS==========
 equals - parâmetros: [class java.lang.Object] - retorno: boolean
 hashCode - parâmetros: [] - retorno: int
 getId - parâmetros: [] - retorno: Integer
-getComparatorData - parâmetros: [] - retorno: Comparator
 getData - parâmetros: [] - retorno: Date
 getCategoria - parâmetros: [] - retorno: String
-getValor - parâmetros: [] - retorno: double
+getComparatorData - parâmetros: [] - retorno: Comparator
 getDescricao - parâmetros: [] - retorno: String
+getValor - parâmetros: [] - retorno: double
 setData - parâmetros: [class java.util.Date] - retorno: void
-setDescricao - parâmetros: [class java.lang.String] - retorno: void
+setValor - parâmetros: [double] - retorno: void
 setCategoria - parâmetros: [class java.lang.String] - retorno: void
 setId - parâmetros: [class java.lang.Integer] - retorno: void
-setValor - parâmetros: [double] - retorno: void
+setDescricao - parâmetros: [class java.lang.String] - retorno: void
