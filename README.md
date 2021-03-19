@@ -9,4 +9,4 @@ O projeto foi feito usando interfaces gráficas do Java. Ao rodar o projeto abre
 
 <h3>Descrição detalhada das classes do programa:</h3>
 
-O projeto foi separado em quatro pacotes de acordo com o padrão MVC: model, view, controller e dao. O pacote view possui quatro classes: OrcamentoPrincipalGUI, que exibe a tela inicial do programa, OrcamentoNovoGUI, que exibe a tela para criar um novo orçamento, OrcamentoAtualizacaoGUI, que exibe uma tela para atualizar um orçamento existente
+O projeto foi separado em quatro pacotes de acordo com o padrão MVC: model, view, controller e dao. <br> O pacote view possui quatro classes: OrcamentoPrincipalGUI, que exibe a tela inicial do programa, OrcamentoNovoGUI, que exibe a tela para criar um novo orçamento, OrcamentoAtualizacaoGUI, que exibe uma tela para atualizar um orçamento existente e DateLabelFormatter que formata as datas nas GUIs de criar novo orçamento e atualização.
