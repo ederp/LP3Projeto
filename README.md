@@ -1,5 +1,5 @@
 # LP3Projeto
-<h1>Repositório do Projeto Integrador da matéria de LP3 do 2º semestre de 2020<h1>
+<h2>Repositório do Projeto Integrador da matéria de LP3 do 2º semestre de 2020</h2>
 
 Os arquivos do projeto encontram-se na branch master
 
