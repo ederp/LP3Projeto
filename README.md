@@ -15,6 +15,6 @@ O projeto foi separado em quatro pacotes de acordo com o padrão MVC: model, vie
 
 Segue uma descrição das tecnologias, as classes onde foram aplicadas e a função delas:
 
-*Threads
+* Threads
 
 Para realizar a leitura do arquivo de modo a exibir a lista de orçamentos do mês foi criada a classe *Read* que implementa *Runnable* . Essa classe é chamada em *OrcamentoDao* e em *OrcamentoController* através de uma Thread. Em *OrcamentoDao*, o método que faz a leitura está dentro de um bloco do tipo *synchronized*.
