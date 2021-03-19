@@ -1,7 +1,7 @@
 # LP3Projeto
 <h2>Repositório do Projeto Integrador da matéria de LP3 do 2º semestre de 2020</h2>
 
-Os arquivos do projeto encontram-se na branch [master](https://github.com/ederp/LP3Projeto/tree/master)
+Os arquivos do projeto encontram-se na branch [master](https://github.com/ederp/LP3Projeto/tree/master).
 
 <h3>Descrição do funcionamento do programa:</h3>
 
