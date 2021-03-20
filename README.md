@@ -29,7 +29,7 @@ O reduce combinado com stream também é usado na classe *OrcamentoPrincipalGUI*
 
 * **Optional**
 
-O Optional é usado classe OrcamentoPrincipalGUI* para evitar que os botões de "Atualizar" e "Excluir" lancem uma exceção do tipo *NullPointerException* quando não há uma tabela na GUI.
+O Optional é usado na classe *OrcamentoPrincipalGUI* para evitar que os botões de "Atualizar" e "Excluir" lancem uma exceção do tipo *NullPointerException* quando não há uma tabela na GUI.
 
 * **Exceções**
 
