@@ -18,3 +18,23 @@ Segue uma descrição das tecnologias, as classes onde foram aplicadas e a funç
 * **Threads**
 
 Para realizar a leitura do arquivo de modo a exibir a lista de orçamentos do mês foi criada a classe *Read* que implementa *Runnable* . Essa classe é chamada em *OrcamentoDao* e em *OrcamentoController* através de uma Thread. Em *OrcamentoDao*, o método que faz a leitura está dentro de um bloco do tipo *synchronized*.
+
+* **Streams**
+
+Os streams são usados na classe *OrcamentoPrincipalGUI* para adicionar itens na GUI e para exibir a tabela.
+
+* **Stream com Reduce**
+
+O reduce combinado com stream também é usado na classe OrcamentoPrincipalGUI* para somar os gastos e recebimentos quando existem despesas num determinado mês. Esses gastos e recebimentos são exibidos junto com a tabela.
+
+* **Optional**
+
+O Optional é usado classe OrcamentoPrincipalGUI* para evitar que os botões de "Atualizar" e "Excluir" lancem uma exceção do tipo *NullPointerException* quando não há uma tabela na GUI.
+
+* **Exceções**
+
+As seguintes classes lançam diversos tipos de exceções: *OrcamentoPrincipalGUI*, *OrcamentoNovoGUI*, *OrcamentoAtualizacaoGUI*, *OrcamentoReflexao* e *OrcamentoDao*. Esta última classe se utiliza da técnica try-with-resources para fechar o arquivo quando ele é acessado para escrita ou leitura.
+
+* **Meta-Programação**
+
+A técnica de Meta-Programação é usada na classe *OrcamentoReflexao* para gerar um arquivo com as informações de um novo orçamento quando é adicionado.
