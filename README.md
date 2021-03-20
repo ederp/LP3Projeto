@@ -33,7 +33,7 @@ O Optional é usado na classe *OrcamentoPrincipalGUI* para evitar que os botões
 
 * **Exceções**
 
-As seguintes classes lançam diversos tipos de exceções: *OrcamentoPrincipalGUI*, *OrcamentoNovoGUI*, *OrcamentoAtualizacaoGUI*, *OrcamentoReflexao* e *OrcamentoDao* usando os blocos try-catch. Esta última classe se utiliza da técnica try-with-resources para fechar o arquivo quando ele é acessado para escrita ou leitura.
+Existem diversos tipos de tratamento de exceções nas seguintes classes: *OrcamentoPrincipalGUI*, *OrcamentoNovoGUI*, *OrcamentoAtualizacaoGUI*, *OrcamentoReflexao* e *OrcamentoDao* usando os blocos try-catch. Esta última classe se utiliza da técnica try-with-resources para fechar o arquivo quando ele é acessado para escrita ou leitura.
 
 * **Meta-Programação**
 
