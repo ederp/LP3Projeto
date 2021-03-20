@@ -25,7 +25,7 @@ Os streams são usados na classe *OrcamentoPrincipalGUI* para adicionar itens na
 
 * **Stream com Reduce**
 
-O reduce combinado com stream também é usado na classe OrcamentoPrincipalGUI* para somar os gastos e recebimentos quando existem despesas num determinado mês. Esses gastos e recebimentos são exibidos junto com a tabela.
+O reduce combinado com stream também é usado na classe *OrcamentoPrincipalGUI* para somar os gastos e recebimentos quando existem despesas num determinado mês. Esses gastos e recebimentos são exibidos junto com a tabela.
 
 * **Optional**
 
